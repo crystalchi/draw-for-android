@@ -20,6 +20,9 @@
         </activity>
         <activity android:name=".Draw1Activity"/>
         <activity android:name=".Draw2Activity"/>
+        <activity android:name=".Draw3Activity"/>
+        <activity android:name=".Draw4Activity"/>
+        <activity android:name=".Draw5Activity"/>
     </application>
 
 </manifest>

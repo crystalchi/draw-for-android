@@ -4,17 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.crystal.draw.widget.MyView1;
+import com.crystal.draw.widget.MyView4;
+import com.crystal.draw.widget.MyView5;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * http://blog.csdn.net/harvic880925/article/details/38875149
+ * http://blog.csdn.net/harvic880925/article/details/50423762
  * Created by Administrator on 2016/10/12 0012.
  */
 
-public class Draw1Activity extends Activity {
+public class Draw5Activity extends Activity {
 
     @BindView(R.id.root)
     FrameLayout root;
@@ -22,9 +23,9 @@ public class Draw1Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.draw1);
+        setContentView(R.layout.draw2);
         ButterKnife.bind(this);
-        MyView1 myView1 = new MyView1(this);
-        root.addView(myView1);
+        MyView5 myView5 = new MyView5(this);
+        root.addView(myView5);
     }
 }

@@ -29,6 +29,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="路径及文字"/>
+
+        <Button
+            android:id="@+id/btn_draw_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="区域（Range）"/>
+
+        <Button
+            android:id="@+id/btn_draw_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="canvas变换与操作"/>
+
+        <Button
+            android:id="@+id/btn_draw_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="drawText()详解"/>
+
     </LinearLayout>
 
 
