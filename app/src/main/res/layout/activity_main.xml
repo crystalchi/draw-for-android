@@ -48,6 +48,23 @@
             android:layout_height="wrap_content"
             android:text="drawText()详解"/>
 
+        <Button
+            android:id="@+id/btn_draw_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线"/>
+
+        <Button
+            android:id="@+id/btn_draw_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线之手势轨迹"/>
+
+        <Button
+            android:id="@+id/btn_draw_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线之水波纹效果"/>
     </LinearLayout>
 
 

@@ -23,7 +23,7 @@ public class Draw2Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.draw2);
+        setContentView(R.layout.draw1);
         ButterKnife.bind(this);
         MyView2 myView2 = new MyView2(this);
         root.addView(myView2);

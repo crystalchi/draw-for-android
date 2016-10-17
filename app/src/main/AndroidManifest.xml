@@ -23,6 +23,9 @@
         <activity android:name=".Draw3Activity"/>
         <activity android:name=".Draw4Activity"/>
         <activity android:name=".Draw5Activity"/>
+        <activity android:name=".Draw6Activity"/>
+        <activity android:name=".Draw7Activity"/>
+        <activity android:name=".Draw8Activity"/>
     </application>
 
 </manifest>
