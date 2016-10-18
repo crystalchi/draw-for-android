@@ -4,19 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.crystal.draw.widget.MyView7;
 import com.crystal.draw.widget.MyView8;
+import com.crystal.draw.widget.MyView9;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * http://blog.csdn.net/harvic880925/article/details/50423762
  * Created by Administrator on 2016/10/12 0012.
  */
 
-public class Draw8Activity extends Activity {
+public class Draw9Activity extends Activity {
 
     @BindView(R.id.root)
     LinearLayout root;
@@ -26,9 +25,9 @@ public class Draw8Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draw3);
         ButterKnife.bind(this);
-        MyView8 myView8 = new MyView8(this);
-        root.addView(myView8);
-        myView8.startAnim();
+        MyView9 myView9 = new MyView9(this);
+        root.addView(myView9);
+        myView9.startAnim();
     }
 
 }

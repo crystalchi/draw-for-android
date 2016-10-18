@@ -3,11 +3,9 @@ package com.crystal.draw.widget;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -19,7 +17,7 @@ import com.crystal.draw.R;
  * Created by Administrator on 2016/10/17 0017.
  */
 
-public class MyView8 extends View {
+public class MyView9 extends View {
 
     private Path mPath;
     private Paint mPaint;
@@ -27,20 +25,20 @@ public class MyView8 extends View {
     private Context mContext;
     private int dx;
     private int dy;
-    private int originY = 800;
+    private int originY = 1000;
 
-    public MyView8(Context context) {
+    public MyView9(Context context) {
         super(context);
         this.mContext = context;
         init();
     }
 
-    public MyView8(Context context, AttributeSet attrs) {
+    public MyView9(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MyView8(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyView9(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -49,34 +47,18 @@ public class MyView8 extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        /*mPath.moveTo(100, 300);
-        mPath.rQuadTo(100, -100, 200, 0);
-        mPath.rQuadTo(100, 100, 200, 0);*/
-
-        /*mPath.moveTo(100, 200);
-        mPath.quadTo(200, 100, 300, 200);
-        canvas.drawPath(mPath, mPaint);*/
-
         mPath.reset();
         int halfWaveLen = mItemWaveLength/2;
         mPath.moveTo(-mItemWaveLength + dx, originY - dy);
-        /**
-         * for循环的次数少，绘制的波动即曲线效果在屏幕之内。
-         * 若次数之多，绘制的效果会现在在屏幕之外（右侧屏幕外）
-         */
-        for(int i = -mItemWaveLength; i <= getWidth() + mItemWaveLength; i += mItemWaveLength){
+        for (int i = -mItemWaveLength; i <= getWidth() + mItemWaveLength; i += mItemWaveLength){ //for循环次数决定，确保当前屏幕内可以容下的波动
             mPath.rQuadTo(halfWaveLen / 2, -50, halfWaveLen, 0);
             mPath.rQuadTo(halfWaveLen / 2, 50, halfWaveLen, 0);
         }
-        /*for (int i = 0; i < 3; i++){
-            mPath.rQuadTo(halfWaveLen / 2, -20, halfWaveLen, 0);
-            mPath.rQuadTo(halfWaveLen / 2, 20, halfWaveLen, 0);
-        }*/
-        //path闭合
+        //闭合
         mPath.lineTo(getWidth(), getHeight());
         mPath.lineTo(0, getHeight());
         mPath.close();
-        canvas.drawPath(mPath,mPaint);
+        canvas.drawPath(mPath, mPaint);
     }
 
 
@@ -96,7 +78,7 @@ public class MyView8 extends View {
 
     public void startAnim(){
         ValueAnimator animator = ValueAnimator.ofInt(0,mItemWaveLength);
-        animator.setDuration(5000);
+        animator.setDuration(8000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -110,7 +92,7 @@ public class MyView8 extends View {
 
 
         ValueAnimator animator1 = ValueAnimator.ofInt(0, originY);
-        animator1.setDuration(5000);
+        animator1.setDuration(8000);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.setInterpolator(new LinearInterpolator());
         animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

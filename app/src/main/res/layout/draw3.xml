@@ -5,14 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_clear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="清空"/>
-
-    <com.crystal.draw.widget.MyView8
-        android:id="@+id/myview8"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

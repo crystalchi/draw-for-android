@@ -65,6 +65,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path之贝赛尔曲线之水波纹效果"/>
+
+        <Button
+            android:id="@+id/btn_draw_9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线加强练习"/>
     </LinearLayout>
 
 
