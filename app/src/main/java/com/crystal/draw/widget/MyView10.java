@@ -111,11 +111,18 @@ public class MyView10 extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mPath.reset();
+        /*mPath.reset();
         mPath.moveTo(200, 200);
         mPath.quadTo(mControX, mControY, 400, 200);
         canvas.drawPath(mPath, mPaint);
-        canvas.drawCircle(mControX, mControY, 20, mPaint);
+        canvas.drawCircle(mControX, mControY, 20, mPaint);*/
+
+        if(currentY == 0){
+            drawCicleAnimator();
+        }else{
+            canvas.drawCircle(300, currentY, 20, mPaint);
+        }
+        canvas.drawLine(200, 200, 400, 200, mPaint);
 
     }
 
