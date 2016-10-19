@@ -64,4 +64,9 @@ public class MainActivity extends AppCompatActivity {
     void draw9(){
         UIHelper.start(this, Draw9Activity.class);
     }
+
+    @OnClick(R.id.btn_draw_10)
+    void draw10(){
+        UIHelper.start(this, Draw10Activity.class);
+    }
 }

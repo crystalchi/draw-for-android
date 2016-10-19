@@ -71,6 +71,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path之贝赛尔曲线加强练习"/>
+
+        <Button
+            android:id="@+id/btn_draw_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线加强练习二"/>
     </LinearLayout>
 
 
