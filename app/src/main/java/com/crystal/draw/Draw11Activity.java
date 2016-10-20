@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.crystal.draw.widget.MyView10;
-import com.crystal.draw.widget.MyView9;
+import com.crystal.draw.widget.MyView11;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2016/10/12 0012.
  */
 
-public class Draw10Activity extends Activity {
+public class Draw11Activity extends Activity {
 
     @BindView(R.id.root)
     LinearLayout root;
@@ -25,11 +25,9 @@ public class Draw10Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draw3);
         ButterKnife.bind(this);
-        MyView10 myView10 = new MyView10(this);
-        root.addView(myView10);
-//        myView10.startAnimator();
-        //myView10.changeAnimator();
-       // myView10.bombAnimator();
+        MyView11 myView11 = new MyView11(this);
+        root.addView(myView11);
+
     }
 
 }
