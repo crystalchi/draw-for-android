@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -100,8 +99,8 @@ public class MyView5 extends View {
         Paint.FontMetricsInt fontMetricsInt = paint.getFontMetricsInt();
         int top = baseLineY + fontMetricsInt.top;
         int bottom = baseLineY + fontMetricsInt.bottom;
-        int right = (int) paint.measureText(text);
-        Rect rect = new Rect(baseLineX, top, baseLineX + right, bottom);
+        int width = (int) paint.measureText(text);
+        Rect rect = new Rect(baseLineX, top, baseLineX + width, bottom);
         paint.setColor(Color.RED);
         canvas.drawRect(rect, paint);
 

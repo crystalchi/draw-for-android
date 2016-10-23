@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.crystal.draw.widget.MyView10;
-import com.crystal.draw.widget.MyView9;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +29,7 @@ public class Draw10Activity extends Activity {
 //        myView10.startAnimator();
         //myView10.changeAnimator();
        // myView10.bombAnimator();
+        myView10.drawBomb();
     }
 
 }
