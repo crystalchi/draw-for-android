@@ -21,6 +21,7 @@ import com.crystal.draw.R;
 
 /**
  * QQ红点消息气泡拉伸爆炸效果实现
+ * 参考API：Java.lang.Math类  http://www.yiibai.com/javalang/java_lang_math.html
  * Created by Administrator on 2016/10/21 0021.
  */
 
@@ -123,10 +124,10 @@ public class MyView12 extends FrameLayout {
             isBomb = true; //标识已爆炸
             mTouch = false; //设置false，不再画圆以及产生的贝塞尔曲线效果
             mTipImageView.setVisibility(View.GONE);
-            mBombImageView.setX(mStartPoint.x - mTipImageView.getWidth() / 2);
-            mBombImageView.setY(mStartPoint.y - mTipImageView.getWidth() / 2);
+            mBombImageView.setX(mCurrentPoint.x - mTipImageView.getWidth() / 2);
+            mBombImageView.setY(mCurrentPoint.y - mTipImageView.getWidth() / 2);
             mBombImageView.setVisibility(View.VISIBLE);
-            ((AnimationDrawable)mBombImageView.getDrawable()).start(); //直接开启爆炸组合动画
+            ((AnimationDrawable)mBombImageView.getDrawable()).start(); //直接开启逐帧动画
         }
 
         //根据角度以及三角函数定律计算出四个切点的坐标
@@ -172,7 +173,7 @@ public class MyView12 extends FrameLayout {
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mBombImageView = new ImageView(context);
         mBombImageView.setLayoutParams(layoutParams);
-        mBombImageView.setImageResource(R.drawable.bomb_anim);
+        mBombImageView.setImageResource(R.drawable.bomb_anim); //设置逐帧动画
         mBombImageView.setVisibility(View.GONE); //爆炸imageview隐藏
 
         mTipImageView = new ImageView(context);
