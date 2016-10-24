@@ -60,7 +60,7 @@ public class MyView12 extends FrameLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         Log.d(TAG, "mTouch is " + mTouch);
-        canvas.saveLayer(new RectF(0, 0, getWidth(), getHeight()), mPaint, Canvas.ALL_SAVE_FLAG);
+        //canvas.saveLayer(new RectF(0, 0, getWidth(), getHeight()), mPaint, Canvas.ALL_SAVE_FLAG);
         if(isBomb || !mTouch){ //isBomb标识已经产生过爆炸效果，不可再次拉伸。
             //默认开始将mTipImageView的中心放在固定位置
             mTipImageView.setX(mStartPoint.x - mTipImageView.getWidth() / 2);
@@ -74,7 +74,7 @@ public class MyView12 extends FrameLayout {
             mTipImageView.setX(mCurrentPoint.x - mTipImageView.getWidth() / 2);
             mTipImageView.setY(mCurrentPoint.y - mTipImageView.getHeight() / 2);
         }
-        canvas.restore();
+        //canvas.restore();
         //绘制ViewGroup（即FrameLayout中的子控件）。
         // 这里指消息数字imageview,将这句放到最后是为了防止上面自己所画的图案覆盖掉子控件。
         //消息数字imageview必须覆盖在自己所画的图案效果上面，不然给用户看不到数字消息效果。
