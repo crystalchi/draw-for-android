@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.crystal.draw.R;
+
 /**
  * Created by Administrator on 2016/10/20 0020.
  */
@@ -18,6 +20,7 @@ import android.view.animation.LinearInterpolator;
 public class MyView11 extends View {
 
     private static final String TAG = MyView11.class.getSimpleName();
+    private Context mContext;
     private Paint mPaint;
     private Paint mBallPaint;
     private Path mPath;
@@ -26,21 +29,21 @@ public class MyView11 extends View {
     private int mEndY;
     private int flySpeed = 100;
     private ValueAnimator animator;
-    private final int radius = 40;
+    private final int radius = 60;
 
     public MyView11(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public MyView11(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public MyView11(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class MyView11 extends View {
             //Log.d(TAG, "currentY , mEndY is  " + currentY + " , " + mEndY);
             //Log.d(TAG, "flySpeed is " + flySpeed);
             canvas.drawCircle(getWidth() / 2,
-                    flySpeed == 0 ? -100 : (mCenterY + (currentY - mCenterY) / 2) * flySpeed / 100 - 40/*mCenterY + (currentY - mCenterY) / 2*/,
+                    flySpeed == 0 ? -100 : (mCenterY + (currentY - mCenterY) / 2) * flySpeed / 100 - 60/*mCenterY + (currentY - mCenterY) / 2*/,
                     radius, mBallPaint);
 
 
@@ -88,7 +91,8 @@ public class MyView11 extends View {
         }
     }
 
-    private void init(){
+    private void init(Context context){
+        this.mContext = context;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.RED);
@@ -97,7 +101,7 @@ public class MyView11 extends View {
 
         mBallPaint = new Paint();
         mBallPaint.setAntiAlias(true);
-        mBallPaint.setColor(Color.GREEN);
+        mBallPaint.setColor(mContext.getResources().getColor(R.color.color_00ff00));
         mBallPaint.setStrokeWidth(20);
         mBallPaint.setStyle(Paint.Style.FILL);
 

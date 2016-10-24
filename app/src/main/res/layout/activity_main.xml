@@ -83,6 +83,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path之贝赛尔曲线加强练习三"/>
+
+        <Button
+            android:id="@+id/btn_draw_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线之拉伸气泡效果"/>
     </LinearLayout>
 
 
