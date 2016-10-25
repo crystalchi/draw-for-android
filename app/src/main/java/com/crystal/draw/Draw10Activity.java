@@ -29,7 +29,7 @@ public class Draw10Activity extends Activity {
 //        myView10.startAnimator();
         //myView10.changeAnimator();
        // myView10.bombAnimator();
-        myView10.drawBomb();
+        //myView10.drawBomb();
     }
 
 }

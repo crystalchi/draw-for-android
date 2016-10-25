@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,6 +18,7 @@ import android.view.View;
 
 public class MyView7 extends View {
 
+    private static final String TAG = MyView7.class.getSimpleName();
     private Path mPath = new Path();
     private float mPreX;
     private float mPreY;
@@ -66,7 +68,7 @@ public class MyView7 extends View {
                 mPath.moveTo(event.getX(), event.getY());
                 mPreX = event.getX();
                 mPreY = event.getY();
-                return true;
+                break;
             case MotionEvent.ACTION_MOVE:
                 float endX = (mPreX + event.getX()) / 2;
                 float endY = (mPreY + event.getY()) / 2;
@@ -76,7 +78,8 @@ public class MyView7 extends View {
                 postInvalidate();
                 break;
         }
-        return super.onTouchEvent(event);
+        Log.d(TAG, "super.onTouchEvent(event) is " + super.onTouchEvent(event));
+        return true;
     }
 
     public void clear(){

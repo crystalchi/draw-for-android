@@ -89,6 +89,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path之贝赛尔曲线之拉伸气泡效果"/>
+
+        <Button
+            android:id="@+id/btn_draw_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线之QQ拉伸气泡爆炸效果"/>
+
+        <Button
+            android:id="@+id/btn_draw_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Path之贝赛尔曲线之360下拉刷新拉伸效果"/>
     </LinearLayout>
 
 

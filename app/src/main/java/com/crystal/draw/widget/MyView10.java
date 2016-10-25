@@ -130,16 +130,11 @@ public class MyView10 extends View{
         canvas.drawPath(mPath, mPaint);
         canvas.drawCircle(mControX, mControY, 20, mPaint);*//*
 
-<<<<<<< Updated upstream
         *//*if(currentY == 0){
-=======
-        /*if(currentY == 0){
->>>>>>> Stashed changes
             drawCicleAnimator();
         }else{
             canvas.drawCircle(300, currentY, 20, mPaint);
         }
-<<<<<<< Updated upstream
         canvas.drawLine(200, 200, 400, 200, mPaint);*//*
 
         int w2 = getWidth() / 2;
@@ -189,17 +184,10 @@ public class MyView10 extends View{
             int cy = (centerPoint.y - mCenterY) / 2 + mCenterY;
             canvas.drawCircle(centerPoint.x, cy, 40, mBallPaint);
         }
-        canvas.drawLine(200, 200, 400, 200, mPaint);
-
-        mPath.reset();
-        mPath.moveTo(200, 200);
-        mPath.quadTo(mControX, currentY, 400, 200);
-        canvas.drawCircle(mControX, currentY, 10, mPaint);
-        canvas.drawPath(mPath, mPaint);
 
     }
 
-    /*@Override
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -339,10 +327,9 @@ public class MyView10 extends View{
         animator3.start();
     }
 
-
-    public void bombAnimator() {
+    public void bombAnimator(){
         mControY = getHeight() / 3 * 2;
-        Log.d(TAG, "mControY , getHeight() / 2 is  " + mControY + " , " + getHeight() / 2);
+        Log.d(TAG, "mControY , getHeight() / 2 is  " +  mControY + " , " + getHeight() / 2);
         ValueAnimator animator = ValueAnimator.ofInt(getHeight() / 2, mControY);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setDuration(1000);
@@ -355,21 +342,6 @@ public class MyView10 extends View{
             }
         });
         animator.start();
-    }
-
-    public void drawBomb(){
-        ValueAnimator animator4 = ValueAnimator.ofInt(200, mControY);
-        animator4.setRepeatCount(ValueAnimator.INFINITE);
-        animator4.setDuration(8000);
-        animator4.setInterpolator(new LinearInterpolator());
-        animator4.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                currentY = (int) animation.getAnimatedValue();
-                postInvalidate();
-            }
-        });
-        animator4.start();
     }
 
 }
