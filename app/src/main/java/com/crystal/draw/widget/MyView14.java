@@ -44,7 +44,6 @@ public class MyView14 extends FrameLayout{
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        mStartPoint.set(getWidth() / 2, 100);
         if(mTouch){
             if(speed >= 0){
                 speed -= 1; //速度从100开始递减1
@@ -65,6 +64,7 @@ public class MyView14 extends FrameLayout{
                 canvas.drawPath(mPath, mPaint);
                 postInvalidateDelayed(10);
             }else{
+                mStartPoint.set(getWidth() / 2, 100);
                 canvas.drawCircle(mStartPoint.x, mStartPoint.y, mRadius * speed / 100, mPaint);
             }
         }
