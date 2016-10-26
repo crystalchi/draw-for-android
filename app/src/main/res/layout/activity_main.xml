@@ -101,6 +101,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path之贝赛尔曲线之360下拉刷新拉伸效果"/>
+
+        <Button
+            android:id="@+id/btn_draw_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paint之setXfermode基础一"/>
     </LinearLayout>
 
 
