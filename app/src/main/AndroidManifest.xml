@@ -33,6 +33,13 @@
         <activity android:name=".Draw13Activity"/>
         <activity android:name=".Draw14Activity"/>
         <activity android:name=".Draw15Activity"/>
+        <activity android:name=".Draw16Activity"/>
+        <activity android:name=".Draw17Activity"/>
+        <activity android:name=".Draw18Activity"/>
+        <activity android:name=".Draw19Activity"/>
+        <activity android:name=".Draw20Activity"/>
+        <activity android:name=".Draw21Activity"/>
+        <activity android:name=".Draw22Activity"/>
     </application>
 
 </manifest>

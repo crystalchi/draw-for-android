@@ -2,25 +2,21 @@ package com.crystal.draw.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.crystal.draw.R;
-
 /**
- * setXfermode基础一
+ * setXfermode基础二
  * Created by Administrator on 2016/10/26 0026.
  */
 
-public class MyView15 extends View{
+public class MyView16 extends View{
 
     private Bitmap mBitmap;
     private int width = 400;
@@ -29,17 +25,17 @@ public class MyView15 extends View{
     private Bitmap srcBmp;
     private Paint mPaint;
 
-    public MyView15(Context context) {
+    public MyView16(Context context) {
         super(context);
         init(context);
     }
 
-    public MyView15(Context context, AttributeSet attrs) {
+    public MyView16(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public MyView15(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyView16(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -52,13 +48,12 @@ public class MyView15 extends View{
         super.onDraw(canvas);
 
 
-
         int layerID = canvas.saveLayer(0,0,width*2,height*2,mPaint,Canvas.ALL_SAVE_FLAG);
 
         //绘制dst目标图
         canvas.drawBitmap(dstBmp, 0, 0, mPaint);
         //设置混合模式
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
         //绘制src源图
         canvas.drawBitmap(srcBmp, width / 2, height / 2, mPaint);
         //还原混合模式
@@ -73,7 +68,7 @@ public class MyView15 extends View{
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        p.setColor(Color.RED);
+        p.setColor(0xFFFFCC44);
         c.drawOval(new RectF(0, 0, w, h), p);
         /*c.drawRect(new RectF(0, 0, w, h), p);*/
         return bm;
@@ -84,7 +79,7 @@ public class MyView15 extends View{
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        p.setColor(Color.GREEN);
+        p.setColor(0xFF66AAFF);
         c.drawRect(0, 0,w,h, p);
         return bm;
     }

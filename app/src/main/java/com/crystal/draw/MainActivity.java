@@ -95,4 +95,39 @@ public class MainActivity extends AppCompatActivity {
         UIHelper.start(this, Draw15Activity.class);
     }
 
+    @OnClick(R.id.btn_draw_16)
+    void draw16(){
+        UIHelper.start(this, Draw16Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_17)
+    void draw17(){
+        UIHelper.start(this, Draw17Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_18)
+    void draw18(){
+        UIHelper.start(this, Draw18Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_19)
+    void draw19(){
+        UIHelper.start(this, Draw19Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_20)
+    void draw20(){
+        UIHelper.start(this, Draw20Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_21)
+    void draw21(){
+        UIHelper.start(this, Draw21Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_22)
+    void draw22(){
+        UIHelper.start(this, Draw22Activity.class);
+    }
+
 }
