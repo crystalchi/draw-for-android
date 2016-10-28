@@ -14,7 +14,7 @@ import android.view.animation.LinearInterpolator;
 import com.crystal.draw.R;
 
 /**
- * 手指轨迹--写字
+ * 贝塞尔曲线之水波波纹效果
  * http://blog.csdn.net/harvic880925/article/details/50995587
  * Created by Administrator on 2016/10/17 0017.
  */

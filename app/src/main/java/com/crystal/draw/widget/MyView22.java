@@ -47,6 +47,7 @@ public class MyView22 extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(text, 0, 0, mPaint);
 
         int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
@@ -92,7 +93,7 @@ public class MyView22 extends View{
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mPaint  = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.RED); //不透明色为100%
+        mPaint.setColor(Color.WHITE); //不透明色为100%
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(45);
 

@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWater">#8EE5EE</color>
     <color name="color_00ff00">#00FF00</color>
+    <color name="color_c37e00">#c37e00</color>
+    <color name="color_ffd700">#ffd700</color>
+    <color name="color_black">#000000</color>
+
+
 </resources>

@@ -150,6 +150,18 @@
             android:layout_height="wrap_content"
             android:text="Paint之setXfermode基础二之刮刮卡效果"/>
 
+        <Button
+            android:id="@+id/btn_draw_23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paint之setXfermode基础三之区域波纹"/>
+
+        <Button
+            android:id="@+id/btn_draw_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paint之setXfermode基础三之心电图"/>
+
     </LinearLayout>
 
 
