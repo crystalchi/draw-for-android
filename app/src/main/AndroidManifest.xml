@@ -42,6 +42,8 @@
         <activity android:name=".Draw22Activity"/>
         <activity android:name=".Draw23Activity"/>
         <activity android:name=".Draw24Activity"/>
+        <activity android:name=".Draw25Activity"/>
+        <activity android:name=".Draw26Activity"/>
 
     </application>
 

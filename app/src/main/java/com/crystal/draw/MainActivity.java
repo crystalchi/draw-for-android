@@ -1,12 +1,10 @@
 package com.crystal.draw;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import com.crystal.draw.R;
+
 import com.crystal.draw.utils.UIHelper;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -138,6 +136,16 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_draw_24)
     void draw24(){
         UIHelper.start(this, Draw24Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_25)
+    void draw25(){
+        UIHelper.start(this, Draw25Activity.class);
+    }
+
+    @OnClick(R.id.btn_draw_26)
+    void draw26(){
+        UIHelper.start(this, Draw26Activity.class);
     }
 
 }

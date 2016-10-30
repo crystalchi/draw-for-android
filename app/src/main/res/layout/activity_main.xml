@@ -162,6 +162,19 @@
             android:layout_height="wrap_content"
             android:text="Paint之setXfermode基础三之心电图"/>
 
+        <Button
+            android:id="@+id/btn_draw_25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Layer图层一"/>
+
+        <Button
+            android:id="@+id/btn_draw_26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Layer图层二"/>
+
+
     </LinearLayout>
 
 

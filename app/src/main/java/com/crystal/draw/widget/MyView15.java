@@ -2,18 +2,13 @@ package com.crystal.draw.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.crystal.draw.R;
 
 /**
  * setXfermode基础一
@@ -58,7 +53,7 @@ public class MyView15 extends View{
         //绘制dst目标图
         canvas.drawBitmap(dstBmp, 0, 0, mPaint);
         //设置混合模式
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
         //绘制src源图
         canvas.drawBitmap(srcBmp, width / 3, height / 3, mPaint);
         //还原混合模式
@@ -73,7 +68,7 @@ public class MyView15 extends View{
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        p.setColor(Color.GREEN);
+        p.setColor(Color.TRANSPARENT);
         c.drawRect(0, 0,w,h, p);
         /*c.drawRect(new RectF(0, 0, w, h), p);*/
         return bm;

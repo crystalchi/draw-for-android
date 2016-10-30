@@ -48,6 +48,7 @@ public class MyView22 extends View{
         super.onDraw(canvas);
 
         canvas.drawColor(Color.WHITE);
+        mPaint.setColor(Color.RED);
         canvas.drawBitmap(text, 0, 0, mPaint);
 
         int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
@@ -55,9 +56,11 @@ public class MyView22 extends View{
         //关键点
         //将手指轨迹画在bitmap上, 其实就是相当于把手指的轨迹画在了图片上
         Canvas c = new Canvas(dst);
+        mPaint.setColor(Color.WHITE);
         canvas.drawPath(mPath, mPaint);
 
         //然后直接将dst图片画在画布上,其实就是画目标图
+        mPaint.setColor(Color.RED);
         canvas.drawBitmap(dst, 0, 0, mPaint);
         //设置混合模式
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
@@ -93,7 +96,7 @@ public class MyView22 extends View{
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mPaint  = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.WHITE); //不透明色为100%
+        mPaint.setColor(Color.TRANSPARENT);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(45);
 
