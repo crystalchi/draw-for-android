@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xp="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.crystal.draw.widget.RoundOrCircleImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/aa"
+            xp:type="circle"  >
+        </com.crystal.draw.widget.RoundOrCircleImageViewByXfermode>
+
+        <com.crystal.draw.widget.RoundOrCircleImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/aa"
+            xp:type="round"  >
+        </com.crystal.draw.widget.RoundOrCircleImageViewByXfermode>
+
+        <com.crystal.draw.widget.RoundOrCircleImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/double11"
+            xp:type="round"  >
+        </com.crystal.draw.widget.RoundOrCircleImageViewByXfermode>
+
+        <com.crystal.draw.widget.RoundOrCircleImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/gold"
+            xp:type="circle"  >
+        </com.crystal.draw.widget.RoundOrCircleImageViewByXfermode>
+
+
+
+    </LinearLayout>
+</ScrollView>
