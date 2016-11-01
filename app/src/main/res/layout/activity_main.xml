@@ -180,6 +180,23 @@
             android:layout_height="wrap_content"
             android:text="Android Xfermode 实战 实现圆形、圆角图片"/>
 
+        <Button
+            android:id="@+id/btn_draw_28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android Xfermode之放大镜"/>
+
+        <Button
+            android:id="@+id/btn_draw_29"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matrix矩阵一之练习demo"/>
+
+        <Button
+            android:id="@+id/btn_draw_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matrix矩阵二之前乘后乘的深入理解"/>
 
     </LinearLayout>
 
