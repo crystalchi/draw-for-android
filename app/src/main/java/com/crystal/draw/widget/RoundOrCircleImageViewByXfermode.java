@@ -55,6 +55,8 @@ public class RoundOrCircleImageViewByXfermode extends ImageView{
 
     private int mBorderWidth = 10;
 
+    private Bitmap mSrcBitMap;
+
     public RoundOrCircleImageViewByXfermode(Context context) {
         this(context, null);
     }
@@ -161,28 +163,60 @@ public class RoundOrCircleImageViewByXfermode extends ImageView{
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
         Drawable drawable = getDrawable(); //获取该view在xml文件中设置的drawable对象
-        //创建一张空白的画布
-        Bitmap srcBitMap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(srcBitMap); //创建一张画板
-        if(type == TYPE_CIRCLE){
-            //在这张空白画布上srcBitMap画内容
-            c.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, mShapePaint);
-        }else{
-            //在这张空白画布上srcBitMap画内容
-            c.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), getHeight() / 2, getHeight() / 2, mShapePaint);
+        if(drawable == null){
+            return;
         }
+        Bitmap dstBitmap = mWeakBitmap == null ? null : mWeakBitmap.get();
+        int dWidth = drawable.getIntrinsicWidth();
+        int dHeight = drawable.getIntrinsicHeight();
+        float scale = getScale(drawable, dWidth, dHeight); //获得缩放比率
+        if(null == mSrcBitMap || mSrcBitMap.isRecycled()){
+            mSrcBitMap = drawShape(drawable); //获得绘制形状bitmap（源图）
+        }
+        if(null == dstBitmap || dstBitmap.isRecycled()){
+            dstBitmap = drawableToBitamp(drawable, scale, dWidth, dHeight); //获得缩放后的目标图bitmap
+            setXfermodeHandle(drawable, dstBitmap, canvas); //图像混合
+            //使用弱引用缓存bitmap，防止内存泄露。不管任何时候都可以让JVM回收。
+            //bitmap缓存起来，避免每次调用onDraw，分配内存
+            mWeakBitmap = new WeakReference<Bitmap>(dstBitmap);
+        }
+        //如果bitmap还存在，则直接绘制即可
+        if(dstBitmap != null){
+            dstBitmap = setScaledBitmap(drawable, dstBitmap, scale, dWidth, dHeight);
+            setXfermodeHandle(drawable, dstBitmap, canvas);
+        }
+    }
+
+    /**
+     * 每次调用invalidate时，将缓存清除.
+     */
+    @Override
+    public void invalidate(){
+        mWeakBitmap = null;
+        if (mSrcBitMap != null){
+            mSrcBitMap.recycle();
+            mSrcBitMap = null;
+        }
+        super.invalidate();
+    }
+
+
+    /**
+     * 设置图像混合操作
+     * @param drawable
+     * @param dstBitmap
+     * @param canvas
+     */
+    private void setXfermodeHandle(Drawable drawable, Bitmap dstBitmap, Canvas canvas){
         int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), mPaint, Canvas.ALL_SAVE_FLAG); //创建一张全新透明的画布
-        Bitmap dstBitmap = drawableToBitamp(drawable);
         //画目标图
         canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
         //设置混合模式
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         //画源图
-        canvas.drawBitmap(srcBitMap, 0, 0, mPaint);
+        canvas.drawBitmap(mSrcBitMap, 0, 0, mPaint);
         mPaint.setXfermode(null); //还原混合模式
         canvas.restoreToCount(layerId); //出栈，将这张全新透明画布上画的内容全部覆盖贴在上一张画布上
-        //drawBorder(canvas);
-
     }
 
     /**
@@ -236,11 +270,38 @@ public class RoundOrCircleImageViewByXfermode extends ImageView{
      * @param drawable
      * @return
      */
-    private Bitmap drawableToBitamp(Drawable drawable) {
+    private Bitmap drawableToBitamp(Drawable drawable, float scale, int dWidth, int dHeight) {
+        //创建一张空白的画布
+        Bitmap bitmap = Bitmap.createBitmap((int) (scale * dWidth), (int)(scale * dHeight), Bitmap.Config.ARGB_8888);
+        //缩放图片
+        bitmap = setScaledBitmap(drawable, bitmap, scale, dWidth, dHeight);
+        return bitmap; //返回bitmap
+    }
+
+    /**
+     * 根据缩放比率设置drawable的大小
+     * @param drawable
+     * @param bitmap
+     * @param scale
+     * @param dWidth
+     * @param dHeight
+     */
+    private Bitmap setScaledBitmap(Drawable drawable, Bitmap bitmap, float scale, int dWidth, int dHeight){
+        Canvas c = new Canvas(bitmap); //放入画板上
+        //设置drawable的大小
+        drawable.setBounds(0, 0,
+                (int) (scale * dWidth), (int)(scale * dHeight));
+        drawable.draw(c); //将drawable画在bitmap上，drawable在这里只能通过bitmap显示
+        return bitmap;
+    }
+
+    /**
+     * 计算缩放比率
+     * @param drawable
+     * @return
+     */
+    private float getScale(Drawable drawable, int dWidth, int dHeight){
         float scale = 1.0f;
-        //获取图片的宽高
-        int dWidth = drawable.getIntrinsicWidth();
-        int dHeight = drawable.getIntrinsicHeight();
         if(type == TYPE_CIRCLE){
             //取最大的缩放比，才能保证宽高缩放大小能与view的宽高一致。
             // 所以实际宽高需要从宽高中取一个最小的值，最后得到的缩放比才是最大的。
@@ -249,14 +310,26 @@ public class RoundOrCircleImageViewByXfermode extends ImageView{
             //取最大的缩放比率
             scale = Math.max(getWidth() * 1.0f / dWidth, getHeight() * 1.0f / dHeight);
         }
+        return scale;
+    }
+
+    /**
+     * 绘制形状
+     * @param drawable
+     * @return
+     */
+    private Bitmap drawShape(Drawable drawable){
         //创建一张空白的画布
-        Bitmap bitmap = Bitmap.createBitmap((int) (scale * dWidth), (int)(scale * dHeight), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bitmap); //放入画板上
-        //设置drawable的大小
-        drawable.setBounds(0, 0,
-                (int) (scale * dWidth), (int)(scale * dHeight));
-        drawable.draw(c); //将drawable画在bitmap上，drawable在这里只能通过bitmap显示
-        return bitmap; //返回bitmap
+        Bitmap srcBitMap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(srcBitMap); //创建一张画板
+        if(type == TYPE_CIRCLE){
+            //在这张空白画布上srcBitMap画内容
+            c.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, mShapePaint);
+        }else{
+            //在这张空白画布上srcBitMap画内容
+            c.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), getHeight() / 2, getHeight() / 2, mShapePaint);
+        }
+        return srcBitMap;
     }
 
     /**
