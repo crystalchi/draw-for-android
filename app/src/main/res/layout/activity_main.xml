@@ -172,7 +172,7 @@
             android:id="@+id/btn_draw_26"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Layer图层二"/>
+            android:text="Layer图层二之save系列函数的FLAG具体意义"/>
 
         <Button
             android:id="@+id/btn_draw_27"

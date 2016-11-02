@@ -52,8 +52,6 @@ public class MyView30 extends View {
         mMatrix.postScale(0.5f, 0.5f);
         canvas.drawBitmap(mBitmap, mMatrix, null);*/
 
-
-
         //right
         /*mMatrix.reset();
         mMatrix.setScale(0.5f, 0.5f);
@@ -105,11 +103,56 @@ public class MyView30 extends View {
         mMatrix.postTranslate(mBitmap.getWidth() / 2, mBitmap.getHeight() / 2);
         canvas.drawBitmap(mBitmap, mMatrix, null);*/
 
-        mMatrix.reset();
+        /*mMatrix.reset();
         mMatrix.postScale(0.5f, 0.5f);
         mMatrix.preTranslate(-mBitmap.getWidth() / 2, -mBitmap.getHeight() / 2);
         mMatrix.postTranslate(mBitmap.getWidth() / 2, mBitmap.getHeight() / 2);
-        canvas.drawBitmap(mBitmap, mMatrix, null);
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+
+
+
+        //skew错切 x方向
+        /*mMatrix.setSkew(1.0f, 0);
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+
+        //skew错切 y方向
+        /*mMatrix.setSkew(0, 0.5f);
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+
+
+
+
+        //前乘、后乘选择实现复合效果，setXXX系列函数每次调用就是清空之前的效果，所以要想实现复合效果。
+        //就要选择前乘、后乘来实现符合我们需求的效果。可以看看一下几个例子。
+        //在复合效果中，需要理解前乘、后乘的关系才能合适地选择前乘、后乘或者前乘后乘同时选择。
+        //以便能到达我们所需要的效果。
+        /*以下程序，//mMatrix注释标记均为不合适的选择*/
+
+        /*1 . //先平移，再缩放。此处效果需要首先要以setTranslate为前提。然后再依据这个前提选择前乘还是后乘。
+        mMatrix.setTranslate(100, 1000);
+        mMatrix.preScale(0.5f, 0.5f); //前乘
+        //mMatrix.postScale(0.5f, 0.5f); //后乘
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+
+
+        /*2. //先缩放，再平移。此处效果首先以setScale为前提。然后再根据这个前提选择前乘还是后乘。
+        mMatrix.setScale(0.5f, 0.5f);
+        mMatrix.postTranslate(100, 1000);
+        //mMatrix.preTranslate(100, 1000);
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+
+
+        /*3. //先由初始位置平移，再缩放，最后平移回初始位置
+        mMatrix.setTranslate(-mBitmap.getWidth() / 2, -mBitmap.getHeight() / 2);
+        mMatrix.postScale(0.5f, 0.5f);
+        mMatrix.postTranslate(mBitmap.getWidth() / 2, mBitmap.getHeight() / 2);
+        canvas.drawBitmap(mBitmap, mMatrix, null);*/
+        //总结：根据上面关于前乘、后乘的三个效果，最好的方式还是列出公式然后一步一步进行推算，最终选择合适的前乘后乘。
+
+
+        //setPolyToPoly：
+
+        //
     }
 
     private void init(){
