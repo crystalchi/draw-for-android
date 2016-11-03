@@ -107,10 +107,11 @@ public class MyView23 extends View {
         mPaint.setStrokeWidth(10);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(context.getResources().getColor(R.color.color_c37e00));
-
         mPath = new Path();
 
         src = BitmapFactory.decodeResource(getResources(), R.drawable.test_text);
         dst = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888); //创建空白的bitmap
+
+        startAnimation();
     }
 }

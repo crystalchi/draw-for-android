@@ -243,11 +243,11 @@ public class MyView26 extends View{
         /*从效果图中可以看出，当我们调用canvas.saveLayer(0, 0, 500, 500, mPaint, Canvas.CLIP_TO_LAYER_SAVE_FLAG)时，
         canvas画板就被裁剪了，不仅影响了自己，而且还把view的原始画布给影响了，
         虽然在调用了canvas.restore()，但最后一句在将原始画布填充为黄色，也可以看出，原始画布没有被恢复！ */
-        canvas.drawColor(Color.RED);
+        /*canvas.drawColor(Color.RED);
         canvas.saveLayer(0, 0, 500, 500, mPaint, Canvas.CLIP_TO_LAYER_SAVE_FLAG);
         canvas.restore();
 
-        canvas.drawColor(Color.YELLOW);
+        canvas.drawColor(Color.YELLOW);*/
 
 
         //Canvas.CLIP_SAVE_FLAG 和 Canvas.CLIP_TO_LAYER_SAVE_FLAG共用

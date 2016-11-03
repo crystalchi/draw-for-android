@@ -15,14 +15,14 @@ import butterknife.ButterKnife;
 
 public class Draw23Activity extends Activity {
 
-    @BindView(R.id.myView)
-    MyView23 myView;
+   /* @BindView(R.id.myView)
+    MyView23 myView;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draw23);
-        ButterKnife.bind(this);
-        myView.startAnimation();
+        //ButterKnife.bind(this);
+        //myView.startAnimation();
     }
 }

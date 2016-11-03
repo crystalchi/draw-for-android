@@ -26,6 +26,7 @@ public class MyView24 extends View {
     private Bitmap dst;
     private Bitmap src;
     private Paint mPaint;
+    private Paint mTransparentPaint;
     private int dx;
 
     public MyView24(Context context) {
@@ -50,8 +51,7 @@ public class MyView24 extends View {
         Canvas c = new Canvas(src);
         //清空bitmap
         c.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
-
-        c.drawRect(dst.getWidth() - dx,0,dst.getWidth(),dst.getHeight(),mPaint);
+        c.drawRect(dst.getWidth() - dx,0,dst.getWidth(),dst.getHeight(),mTransparentPaint);
 
         //模式合成
         int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
@@ -84,6 +84,11 @@ public class MyView24 extends View {
         mPaint.setStrokeWidth(10);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(context.getResources().getColor(R.color.color_c37e00));
+
+        mTransparentPaint = new Paint();
+        mTransparentPaint.setAntiAlias(true);
+        mTransparentPaint.setStyle(Paint.Style.FILL);
+        mTransparentPaint.setColor(Color.RED);
 
         dst = BitmapFactory.decodeResource(getResources(), R.drawable.heartmap);
         src = Bitmap.createBitmap(dst.getWidth(), dst.getHeight(), Bitmap.Config.ARGB_8888); //创建空白的bitmap
