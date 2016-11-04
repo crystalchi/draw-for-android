@@ -210,6 +210,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="paint.setXfermode之SRC_IN模式加深理解"/>
+
     </LinearLayout>
 
 
