@@ -94,6 +94,7 @@ public class MyView32 extends View{
 
 
         实际应用总结：
+
         在实际应用中，我们可以从下面三个方面来决定使用哪一个模式：
         1、首先，目标图像和源图像混合，需不需要生成颜色的叠加特效，如果需要叠加特效则从颜色叠加相关模式中选择，
         有Mode.ADD（饱和度相加）、Mode.DARKEN（变暗），Mode.LIGHTEN（变亮）、Mode.MULTIPLY（正片叠底）、Mode.OVERLAY（叠加），Mode.SCREEN（滤色）
