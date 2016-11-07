@@ -13,6 +13,6 @@ public class Draw30Activity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.draw30);
+        setContentView(R.layout./*draw30*//*zoom_imageview*/picscale_imageview);
     }
 }

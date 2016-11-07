@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.crystal.draw.R;
@@ -13,6 +14,7 @@ import com.crystal.draw.R;
 /**
  * 关于Matrix前乘、后乘的深入理解
  * 参考：
+ * https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B09%5DMatrix_Basic.md
  * http://blog.csdn.net/linmiansheng/article/details/18820599
  * http://blog.csdn.net/cquwentao/article/details/51445269
  * http://blog.csdn.net/qq_30379689/article/details/52768910
@@ -21,6 +23,8 @@ import com.crystal.draw.R;
  */
 
 public class MyView30 extends View {
+
+    private static final String TAG = MyView30.class.getSimpleName();
 
     private Bitmap mBitmap;
     private Matrix mMatrix;
@@ -150,9 +154,9 @@ public class MyView30 extends View {
         //总结：根据上面关于前乘、后乘的三个效果，最好的方式还是列出公式然后一步一步进行推算，最终选择合适的前乘后乘。
 
 
-        //setPolyToPoly：
-
-        //
+        mMatrix.reset();
+        Log.d(TAG, "matrix' value is " + mMatrix.toString());
+        Log.d(TAG, "matrix' short value is " + mMatrix.toShortString());
     }
 
     private void init(){
