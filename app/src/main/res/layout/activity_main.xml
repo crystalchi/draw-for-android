@@ -196,7 +196,7 @@
             android:id="@+id/btn_draw_30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Matrix矩阵二之前乘后乘的深入理解"/>
+            android:text="Matrix矩阵二之图片的缩放"/>
 
         <Button
             android:id="@+id/btn_draw_31"
@@ -210,6 +210,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="paint.setXfermode之SRC_IN模式加深理解"/>
+
+        <Button
+            android:id="@+id/btn_draw_33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matrix详解"/>
 
     </LinearLayout>
 

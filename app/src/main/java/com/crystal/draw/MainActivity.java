@@ -179,6 +179,11 @@ public class MainActivity extends AppCompatActivity {
         UIHelper.start(this, Draw32Activity.class);
     }
 
+    @OnClick(R.id.btn_draw_33)
+    void draw33(){
+        UIHelper.start(this, Draw33Activity.class);
+    }
+
 
 
 }

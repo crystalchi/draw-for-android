@@ -51,6 +51,7 @@
         <activity android:name=".Draw30Activity"/>
         <activity android:name=".Draw31Activity"/>
         <activity android:name=".Draw32Activity"/>
+        <activity android:name=".Draw33Activity"/>
 
 
     </application>

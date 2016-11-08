@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.crystal.draw.widget.PicScaleImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <com.crystal.draw.widget.MatrixImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="matrix"
-        android:src="@drawable/dog" />
+        android:src="@drawable/dog"/>
 
 </LinearLayout>
