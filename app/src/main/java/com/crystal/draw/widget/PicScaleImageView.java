@@ -72,10 +72,10 @@ public class PicScaleImageView extends ImageView implements
             if (scaleFactor * preScaleValue < initScale) {
                 scaleFactor = initScale / preScaleValue;
             }
+            //手势缩放图片
+            mMatrix.postScale(scaleFactor, scaleFactor, detector.getFocusX(), detector.getFocusY());
             //平移至中心位置
             controllRange();
-            //手势缩放图片
-            mMatrix.preScale(scaleFactor, scaleFactor, detector.getFocusX(), detector.getFocusY());
             setImageMatrix(mMatrix); //应用缩放
         }
         return true; //处理缩放手势事件
@@ -271,6 +271,6 @@ public class PicScaleImageView extends ImageView implements
         if (rect.height() < height) {
             offsetY = height * 0.5f - rect.bottom + rect.height() * 0.5f;
         }
-        mMatrix.preTranslate(offsetX, offsetY);
+        mMatrix.postTranslate(offsetX, offsetY);
     }
 }

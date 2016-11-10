@@ -3,9 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.crystal.draw.widget.BaseDragZoomImageView
+    <com.crystal.draw.widget.DragAndScaleImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/dragandzoombase"
+        android:src="@drawable/tbug"
         android:scaleType="matrix"/>
 </LinearLayout>
