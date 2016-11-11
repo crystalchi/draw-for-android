@@ -221,7 +221,13 @@
             android:id="@+id/btn_draw_34"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Matrix实现图片缩放和拖动"/>
+            android:text="Matrix实现图片缩放和拖动以及双击放大缩小"/>
+
+        <Button
+            android:id="@+id/btn_draw_35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matrix实现图片缩放和拖动以及双击放大缩小加强版"/>
 
 
     </LinearLayout>

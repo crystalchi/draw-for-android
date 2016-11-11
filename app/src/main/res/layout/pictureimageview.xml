@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/color_black">
 
-    <com.crystal.draw.widget.DragAndScaleImageView
+    <com.crystal.draw.widget.PictureImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/dog"
+        android:src="@drawable/tbug"
         android:scaleType="matrix"/>
 </LinearLayout>
