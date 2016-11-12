@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -17,13 +18,15 @@ import android.widget.ImageView;
  * Created by Administrator on 2016/11/11 0011.
  */
 
-public class PictureImageView extends ImageView implements
-        ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener{
+public class SDImageView extends ImageView implements
+        ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener,
+        ViewTreeObserver.OnGlobalLayoutListener{
 
-    private static final String TAG = PictureImageView.class.getSimpleName();
+    private static final String TAG = SDImageView.class.getSimpleName();
 
     private static final float MAX_SCALE = 5.0f; //最大缩放scale
     private ScaleGestureDetector mScaleGestureDetector;
+    private GestureDetector mGestureDetector;
     private float[] matrixValues = new float[9];
     private Matrix mMatrix;
     private boolean mFirst = true;
@@ -32,27 +35,52 @@ public class PictureImageView extends ImageView implements
     private PointF startPointF;
     private Matrix currentMatrix;
 
-    private static final int DRAG_MODE = 1; //拖拽模式(translate)
-    private static final int SCALE_MODE = 2; //缩放模式(scale)
-    private int mode; //状态模式
+    private boolean doubleClick = false; //双击标识
+    private Matrix mMinMatrix; //记录图片的最小缩放的范围
+    private float tempScale; //记录双击放大缩小的scale
+    private float initScale = 1.0f; //初始化缩放比率(默认)
 
 
-
-    public PictureImageView(Context context) {
+    public SDImageView(Context context) {
         this(context, null);
     }
 
-    public PictureImageView(Context context, AttributeSet attrs) {
+    public SDImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
     private void init(Context context){
         mScaleGestureDetector = new ScaleGestureDetector(context, this);
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                currentMatrix.set(getImageMatrix());
+                mMatrix.set(currentMatrix);
+                mMatrix.postTranslate(-distanceX, -distanceY);
+                disallowLeaveScreenBound();
+                setImageMatrix(mMatrix);
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if(!doubleClick){ //放大
+                    tempScale = changeBiggerByDoubleTap();
+                    doubleClick = true;
+                }else{ //缩小
+                    tempScale = initScale;
+                    doubleClick = false;
+                }
+                postDelayed(new SDImageView.ScaleRunnable(tempScale, e.getX(), e.getY()), 30);
+                return true;
+            }
+        });
         this.setOnTouchListener(this);
         mMatrix = new Matrix();
         currentMatrix = new Matrix();
         startPointF = new PointF();
+        mMinMatrix = new Matrix();
     }
 
     @Override
@@ -128,42 +156,30 @@ public class PictureImageView extends ImageView implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-        //处理拖拽事件
-        switch (event.getAction() & event.getActionMasked()){
+        //单点触控
+        mGestureDetector.onTouchEvent(event);
+        //多点触控
+        mScaleGestureDetector.onTouchEvent(event);
+        return true;
+        /*//处理拖拽事件
+        switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 //Log.d(TAG, "MotionEvent.ACTION_DOWN...");
-                mode = DRAG_MODE;
                 startPointF.set(event.getX(), event.getY());
                 currentMatrix.set(getImageMatrix());
                 Log.d(TAG, "currentMatrix is ACTION_DOWN " + currentMatrix.toShortString());
                 break;
             case MotionEvent.ACTION_MOVE:
                 //Log.d(TAG, "MotionEvent.ACTION_MOVE...");
-                if(mode == DRAG_MODE){
                     float dx = event.getX() - startPointF.x;
                     float dy = event.getY() - startPointF.y;
                     Log.d(TAG, "currentMatrix is ACTION_MOVE " + currentMatrix.toShortString());
                     mMatrix.set(currentMatrix);
                     mMatrix.postTranslate(dx, dy);
-                }
-                if(mode == SCALE_MODE){
-                    //将触摸事件交给缩放检测
-                    boolean handle = mScaleGestureDetector.onTouchEvent(event);
-                    Log.d(TAG, "handle is " + handle);
-                    return handle;
-
-                }
-                break;
-            case MotionEvent.ACTION_POINTER_UP: //当触点离开屏幕，但是屏幕上还有触点(手指)
-                mode = 0;
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN: //当屏幕上已经有触点(手指)，再有一个触点压下屏幕
-                mode = SCALE_MODE;
                 break;
         }
         setImageMatrix(mMatrix);
-        return true;
+        return true;*/
 
     }
 
@@ -204,6 +220,8 @@ public class PictureImageView extends ImageView implements
             mMatrix.postTranslate((width - dWidth) / 2, (height - dHeight) / 2);
             mMatrix.postScale(scale, scale, width / 2, height / 2);
             setImageMatrix(mMatrix);
+            initScale = getPreScale(); //保存默认的最小缩放比率
+            mMinMatrix.set(mMatrix);
             mFirst = false;
         }
 
@@ -244,5 +262,117 @@ public class PictureImageView extends ImageView implements
             matrix.mapRect(rectF);
         }
         return rectF;
+    }
+
+
+
+
+
+    /**
+     * 图片拖拽时不能离开屏幕的边界
+     */
+    private void disallowLeaveScreenBound(){
+        RectF rectF = getMatrixRectF(mMatrix);
+        float offsetX = 0.0f; //记录图片偏离屏幕的横坐标值
+        float offsetY = 0.0f; //记录图片偏离屏幕的纵坐标值
+        int width = getWidth(); //屏幕宽度
+        int height = getHeight(); //屏幕高度
+
+        if(rectF.width() >= width){
+            if(rectF.left > 0){
+                offsetX = - rectF.left;
+            }
+            if(rectF.right < width){
+                offsetX = width - rectF.right;
+            }
+        }
+        if(rectF.height() >= height){
+            if(rectF.top > 0){
+                offsetY = -rectF.top;
+            }
+            if(rectF.bottom < height){
+                offsetY = height - rectF.bottom;
+            }
+        }
+        mMatrix.postTranslate(offsetX, offsetY);
+    }
+
+    /**
+     * 在初始默认的图片大小基础上变大显示满屏
+     * @return
+     */
+    private float changeBiggerByDoubleTap(){
+        RectF rectF = getMatrixRectF(mMinMatrix);
+        float dwidth = rectF.right - rectF.left;
+        float dheight = rectF.bottom - rectF.top;
+        float width = getWidth();
+        float height = getHeight();
+        float scale = Math.max(width / dwidth, height / dheight);
+        scale *= initScale;
+        return scale;
+    }
+
+    private class ScaleRunnable implements Runnable{
+
+        private float scale;
+        private float x, y;
+
+        public ScaleRunnable(float scale, float x, float y){
+            this.scale = scale;
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public void run() {
+            mMatrix.reset();
+            mMatrix.postTranslate(getWidth() / 2 - x, getHeight() / 2 - y);
+            mMatrix.postScale(scale, scale, getWidth() / 2, getHeight() / 2);
+            controllPicRangeInScreen();
+            //mCurrentMatrix.set(mMatrix);
+            setImageMatrix(mMatrix);
+        }
+    }
+
+    /**
+     * 控制图片缩放后在屏幕中的范围
+     */
+    private void controllPicRangeInScreen(){
+        RectF rectF = getMatrixRectF(mMatrix);
+        float offsetX = 0.0f; //记录图片偏离屏幕的横坐标值
+        float offsetY = 0.0f; //记录图片偏离屏幕的纵坐标值
+        int width = getWidth(); //屏幕宽度
+        int height = getHeight(); //屏幕高度
+
+        //图片宽度大于等于屏幕宽度
+        if(rectF.width() >= width){
+            //图片左边偏离屏幕
+            if(rectF.left > 0){
+                offsetX = -rectF.left;
+            }
+            //图片右边偏离屏幕
+            if(rectF.right < width){
+                offsetX = width - rectF.right;
+            }
+        }
+        //图片高度大于等于屏幕高度
+        if(rectF.height() >= height){
+            if(rectF.top > 0){
+                offsetY = - rectF.top;
+            }
+            if(rectF.bottom < height){
+                offsetY = height - rectF.bottom;
+            }
+        }
+
+        //图片的宽或高小于屏幕的宽或搞，平移至屏幕中心
+        if(rectF.width() < width){
+            offsetX = 0.5f * width - rectF.right + 0.5f * rectF.width();
+        }
+        if(rectF.height() < height){
+            offsetY = 0.5f * height - rectF.bottom + 0.5f * rectF.height();
+        }
+        //平移
+        mMatrix.postTranslate(offsetX, offsetY);
     }
 }
