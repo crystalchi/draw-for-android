@@ -72,7 +72,7 @@ public class SDImageView extends ImageView implements
                     tempScale = initScale;
                     doubleClick = false;
                 }
-                postDelayed(new SDImageView.ScaleRunnable(tempScale, e.getX(), e.getY()), 30);
+                postDelayed(new SDImageView.ScaleRunnable(tempScale, e.getX(), e.getY()), 15);
                 return true;
             }
         });
@@ -314,23 +314,40 @@ public class SDImageView extends ImageView implements
 
     private class ScaleRunnable implements Runnable{
 
+        static final float BIGGER = 1.07f;
+        static final float SMALLER = 0.93f;
+        private float targetScale;
         private float scale;
         private float x, y;
 
-        public ScaleRunnable(float scale, float x, float y){
-            this.scale = scale;
+        public ScaleRunnable(float targetScale, float x, float y){
+            this.targetScale = targetScale;
             this.x = x;
             this.y = y;
+            if(getPreScale() < targetScale){
+                scale = BIGGER;
+            }else{
+                scale = SMALLER;
+            }
         }
 
         @Override
         public void run() {
-            mMatrix.reset();
             mMatrix.postTranslate(getWidth() / 2 - x, getHeight() / 2 - y);
             mMatrix.postScale(scale, scale, getWidth() / 2, getHeight() / 2);
             controllPicRangeInScreen();
-            //mCurrentMatrix.set(mMatrix);
             setImageMatrix(mMatrix);
+
+            final float currentScale = getPreScale();
+            if((scale > 1.0f && currentScale < targetScale) || (scale < 1.0f && currentScale > targetScale)){
+                SDImageView.this.postDelayed(this, 15);
+            }else{
+                float endScale = targetScale / currentScale;
+                mMatrix.postTranslate(getWidth() / 2 - x, getHeight() / 2 - y);
+                mMatrix.postScale(endScale, endScale, getWidth() / 2, getHeight() / 2);
+                controllPicRangeInScreen();
+                setImageMatrix(mMatrix);
+            }
         }
     }
 
