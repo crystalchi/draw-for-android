@@ -252,6 +252,7 @@ public class RoundOrCircleImageViewByXfermode extends ImageView{
         mPaint.setAntiAlias(true);
         mShapePaint = new Paint();
         mShapePaint.setAntiAlias(true);
+        mShapePaint.setColor(Color.RED);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundOrCircleImageViewByXfermode);
         mBorderRadius = ta.getDimensionPixelSize(

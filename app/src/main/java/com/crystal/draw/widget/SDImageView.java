@@ -11,6 +11,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
@@ -40,6 +41,10 @@ public class SDImageView extends ImageView implements
     private float tempScale; //记录双击放大缩小的scale
     private float initScale = 1.0f; //初始化缩放比率(默认)
 
+    private boolean isDraging;
+    private boolean isScaling;
+    private float mTouchSlop;
+
 
     public SDImageView(Context context) {
         this(context, null);
@@ -53,7 +58,7 @@ public class SDImageView extends ImageView implements
     private void init(Context context){
         mScaleGestureDetector = new ScaleGestureDetector(context, this);
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
-            @Override
+            /*@Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                 currentMatrix.set(getImageMatrix());
                 mMatrix.set(currentMatrix);
@@ -61,7 +66,7 @@ public class SDImageView extends ImageView implements
                 disallowLeaveScreenBound();
                 setImageMatrix(mMatrix);
                 return true;
-            }
+            }*/
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
@@ -81,6 +86,9 @@ public class SDImageView extends ImageView implements
         currentMatrix = new Matrix();
         startPointF = new PointF();
         mMinMatrix = new Matrix();
+
+        final ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
+        mTouchSlop = viewConfiguration.getScaledTouchSlop();
     }
 
     @Override
@@ -88,7 +96,7 @@ public class SDImageView extends ImageView implements
         //scaleFactor大于1.0f表示手势是扩大，小于1.0f表示手势是缩小。
         float scaleFactor = detector.getScaleFactor();
         float preScale = getPreScale();
-        Log.d(TAG, "preScale is " + preScale);
+        Log.d(TAG, "isDraging isScaling isis " + isDraging() + " , " + isScaling());
         //图片放大
         if(scaleFactor > 1.0f){
             if(isMax){ //已经放大到最大
@@ -156,31 +164,64 @@ public class SDImageView extends ImageView implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        //单点触控
+        /*//单点触控
         mGestureDetector.onTouchEvent(event);
         //多点触控
         mScaleGestureDetector.onTouchEvent(event);
-        return true;
-        /*//处理拖拽事件
+        return true;*/
+
+        if(mGestureDetector.onTouchEvent(event))
+            return true;
+        mScaleGestureDetector.onTouchEvent(event);
+        //处理拖拽事件
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                //Log.d(TAG, "MotionEvent.ACTION_DOWN...");
                 startPointF.set(event.getX(), event.getY());
-                currentMatrix.set(getImageMatrix());
+                //currentMatrix.set(getImageMatrix());
+                isDraging = false;
                 Log.d(TAG, "currentMatrix is ACTION_DOWN " + currentMatrix.toShortString());
                 break;
             case MotionEvent.ACTION_MOVE:
-                //Log.d(TAG, "MotionEvent.ACTION_MOVE...");
-                    float dx = event.getX() - startPointF.x;
-                    float dy = event.getY() - startPointF.y;
-                    Log.d(TAG, "currentMatrix is ACTION_MOVE " + currentMatrix.toShortString());
-                    mMatrix.set(currentMatrix);
+                float dx = event.getX() - startPointF.x;
+                float dy = event.getY() - startPointF.y;
+                drag(dx, dy);
+                /*if(isScaling()){
+                    return true;
+                }
+                if(!isDraging){
+                    isDraging = Math.sqrt((dx * dx) + (dy * dy)) >= mTouchSlop;
+                }
+                if (isDraging) {
+                    //mMatrix.set(currentMatrix);
                     mMatrix.postTranslate(dx, dy);
+                   *//* startPointF.set(event.getX(), event.getY());*//*
+                    disallowLeaveScreenBound();
+                    setImageMatrix(mMatrix);
+
+                }*/
                 break;
         }
-        setImageMatrix(mMatrix);
-        return true;*/
+        startPointF.set(event.getX(), event.getY());
+        Log.d(TAG, "isDraging , isScaling is " + isDraging + " , " + isScaling());
+        return true;
 
+    }
+
+    private void drag(float dx, float dy){
+        if(isScaling()){
+            return;
+        }
+        if(!isDraging){
+            isDraging = Math.sqrt((dx * dx) + (dy * dy)) >= mTouchSlop;
+        }
+        Log.d(TAG, "isScaling isDraging isis " + isScaling() + " , " + isDraging());
+        if (isDraging) {
+            //mMatrix.set(currentMatrix);
+            mMatrix.postTranslate(dx, dy);
+                   /* startPointF.set(event.getX(), event.getY());*/
+            disallowLeaveScreenBound();
+            setImageMatrix(mMatrix);
+        }
     }
 
     @Override
@@ -294,6 +335,13 @@ public class SDImageView extends ImageView implements
                 offsetY = height - rectF.bottom;
             }
         }
+        //图片的宽或高小于屏幕的宽或搞，平移至屏幕中心
+        if(rectF.width() < width){
+            offsetX = 0.5f * width - rectF.right + 0.5f * rectF.width();
+        }
+        if(rectF.height() < height){
+            offsetY = 0.5f * height - rectF.bottom + 0.5f * rectF.height();
+        }
         mMatrix.postTranslate(offsetX, offsetY);
     }
 
@@ -391,5 +439,13 @@ public class SDImageView extends ImageView implements
         }
         //平移
         mMatrix.postTranslate(offsetX, offsetY);
+    }
+
+    public boolean isScaling() {
+        return mScaleGestureDetector.isInProgress();
+    }
+
+    public boolean isDraging() {
+        return isDraging;
     }
 }
