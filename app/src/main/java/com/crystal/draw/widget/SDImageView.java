@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 /**
+ * 参考：https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B09%5DMatrix_Basic.md
  * Created by Administrator on 2016/11/11 0011.
  */
 
@@ -115,6 +116,7 @@ public class SDImageView extends ImageView implements
             }
         }
         mMatrix.postScale(scaleFactor, scaleFactor, detector.getFocusX(), detector.getFocusY());
+        controllPicRangeInScreen();
         setImageMatrix(mMatrix);
         return true;
     }
@@ -185,20 +187,6 @@ public class SDImageView extends ImageView implements
                 float dx = event.getX() - startPointF.x;
                 float dy = event.getY() - startPointF.y;
                 drag(dx, dy);
-                /*if(isScaling()){
-                    return true;
-                }
-                if(!isDraging){
-                    isDraging = Math.sqrt((dx * dx) + (dy * dy)) >= mTouchSlop;
-                }
-                if (isDraging) {
-                    //mMatrix.set(currentMatrix);
-                    mMatrix.postTranslate(dx, dy);
-                   *//* startPointF.set(event.getX(), event.getY());*//*
-                    disallowLeaveScreenBound();
-                    setImageMatrix(mMatrix);
-
-                }*/
                 break;
         }
         startPointF.set(event.getX(), event.getY());
@@ -216,9 +204,7 @@ public class SDImageView extends ImageView implements
         }
         Log.d(TAG, "isScaling isDraging isis " + isScaling() + " , " + isDraging());
         if (isDraging) {
-            //mMatrix.set(currentMatrix);
             mMatrix.postTranslate(dx, dy);
-                   /* startPointF.set(event.getX(), event.getY());*/
             disallowLeaveScreenBound();
             setImageMatrix(mMatrix);
         }
@@ -226,13 +212,15 @@ public class SDImageView extends ImageView implements
 
     @Override
     public void onGlobalLayout() {
-        if(mFirst){
+        if(mFirst){ //加此标记，确保多次调用onGlobalLayout方法时，程序只被执行一次。
             Drawable drawable = getDrawable();
             if(null == drawable){
                 return;
             }
+            //屏幕的宽高
             int width = getWidth();
             int height = getHeight();
+            //图片的宽高
             int dWidth = drawable.getIntrinsicWidth();
             int dHeight = drawable.getIntrinsicHeight();
 

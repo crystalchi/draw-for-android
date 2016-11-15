@@ -144,14 +144,6 @@ public class DragAndScaleImageView extends ImageView implements
                 startPointF.set(event.getX(), event.getY()); //记录每次单点触控按压的坐标
                 break;
             case MotionEvent.ACTION_MOVE:
-                /*if(mode == DRAG_MODE){
-                    float dx = event.getX() - startPointF.x;
-                    float dy = event.getY() - startPointF.y;
-                    Log.d(TAG, "mMatrix is " +  mMatrix.toShortString());
-                    mMatrix.set(mCurrentMatrix); //以当前矩阵为基础
-                    mMatrix.postTranslate(dx, dy); //在当前矩阵的基础上进行平移
-                    //disallowOverScreenRange(); //检测不允许超出屏幕范围
-                }*/
                 if(mode == DRAG_MODE/* && isMax*/){ //最大缩放状态时拖动
                     float dx = event.getX() - startPointF.x;
                     float dy = event.getY() - startPointF.y;
