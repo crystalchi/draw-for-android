@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button android:id="@+id/btn_alpha_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="alpha"
+        android:layout_alignParentLeft="true"/>
+
+    <Button android:id="@+id/btn_scale_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="scale"
+        android:layout_toRightOf="@+id/btn_alpha_anim"/>
+
+    <Button android:id="@+id/btn_rotate_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="rotate"
+        android:layout_toRightOf="@+id/btn_scale_anim"/>
+
+    <Button android:id="@+id/btn_translate_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="trans"
+        android:layout_toRightOf="@+id/btn_rotate_anim"
+        android:layout_alignParentRight="true"/>
+
+    <Button android:id="@+id/btn_set_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="set"
+        android:layout_below="@+id/btn_alpha_anim"
+        android:layout_alignParentLeft="true"/>
+
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="100dip"
+        android:layout_height="200dip"
+        android:background="#ff00ff"
+        android:text="@string/hello_world"
+        android:layout_below="@+id/btn_set_anim"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

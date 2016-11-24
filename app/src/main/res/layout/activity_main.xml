@@ -229,6 +229,12 @@
             android:layout_height="wrap_content"
             android:text="Matrix实现图片缩放和拖动以及双击放大缩小加强版"/>
 
+        <Button
+            android:id="@+id/btn_anim1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="alpha、scale、translate、rotate、set的xml属性及用法"/>
+
 
     </LinearLayout>
 

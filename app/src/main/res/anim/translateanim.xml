@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="0"
+    android:toXDelta="100"
+    android:fromYDelta="0"
+    android:toYDelta="100"
+    android:fillAfter="true"
+    android:duration="3000">
+
+    <!--
+        android:fromXDelta     起始点X轴坐标，可以是数值、百分数、百分数p 三种样式，比如 50、50%、50%p，具体意义已在scale标签中讲述，这里就不再重讲
+        android:fromYDelta    起始点Y轴从标，可以是数值、百分数、百分数p 三种样式；
+        android:toXDelta         结束点X轴坐标
+        android:toYDelta        结束点Y轴坐标
+    -->
+
+</translate>
