@@ -55,6 +55,7 @@
         <activity android:name=".Draw34Activity"/>
         <activity android:name=".Draw35Activity"/>
         <activity android:name=".Anim1Activity"/>
+        <activity android:name=".AnalysisOfHeroAbilityActivity"/>
 
     </application>
 

@@ -199,5 +199,10 @@ public class MainActivity extends AppCompatActivity {
         UIHelper.start(this, Anim1Activity.class);
     }
 
+    @OnClick(R.id.btn_hero)
+    void hero(){
+        UIHelper.start(this, AnalysisOfHeroAbilityActivity.class);
+    }
+
 
 }

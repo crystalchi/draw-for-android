@@ -235,6 +235,11 @@
             android:layout_height="wrap_content"
             android:text="alpha、scale、translate、rotate、set的xml属性及用法"/>
 
+        <Button
+            android:id="@+id/btn_hero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="掌上英雄联盟能力值分析效果"/>
 
     </LinearLayout>
 
